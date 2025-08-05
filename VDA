@@ -1,0 +1,78 @@
+import React from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ClipboardList, FileText, Award } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { useRouter } from 'next/router';
+
+export default function SurveysAndTraining() {
+  const router = useRouter();
+
+  const items = [
+    {
+      title: "Fall 2025 Course Evaluation",
+      type: "Survey",
+      description: "Help improve your courses by providing feedback.",
+      icon: <ClipboardList className="w-6 h-6" />,
+      href: "/surveys/course-evaluation"
+    },
+    {
+      title: "Student Satisfaction Survey",
+      type: "Survey",
+      description: "Tell us about your overall student experience.",
+      icon: <ClipboardList className="w-6 h-6" />,
+      href: "/surveys/satisfaction"
+    },
+    {
+      title: "Cybersecurity Awareness Training",
+      type: "Training",
+      description: "Mandatory training on how to protect your digital identity.",
+      icon: <Award className="w-6 h-6" />,
+      href: "/training/cybersecurity"
+    },
+    {
+      title: "Library Resources Orientation",
+      type: "Training",
+      description: "Learn how to access and use school library databases.",
+      icon: <Award className="w-6 h-6" />,
+      href: "/training/library"
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-white p-6">
+      <div className="max-w-6xl mx-auto">
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-3xl font-bold mb-6 text-center"
+        >
+          Surveys & Training
+        </motion.h1>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {items.map((item, index) => (
+            <motion.div
+              key={index}
+              whileHover={{ scale: 1.03 }}
+              className="cursor-pointer"
+              onClick={() => router.push(item.href)}
+            >
+              <Card className="shadow hover:shadow-md transition">
+                <CardContent className="p-5">
+                  <div className="flex items-center space-x-3 mb-3">
+                    {item.icon}
+                    <h2 className="text-lg font-semibold">{item.title}</h2>
+                  </div>
+                  <p className="text-sm text-gray-600 mb-1">{item.description}</p>
+                  <span className="text-xs text-gray-500 uppercase">{item.type}</span>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
